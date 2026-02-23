@@ -1,0 +1,127 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صفحه اصلی تلگرام</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body {
+    margin:0;
+    padding:0;
+    font-family: 'Vazirmatn', Tahoma, sans-serif;
+    background: #0088cc;
+    color: #000;
+}
+
+/* نوار بالا */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #0088cc;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: sticky;
+    top:0;
+    z-index: 100;
+}
+
+.navbar .menu, .navbar .options {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.navbar .title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* دکمه سیو مسیج */
+.save-message {
+    background: #00aaff;
+    padding: 10px 15px;
+    border-radius: 15px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin: 15px auto;
+    text-align: center;
+    width: 90%;
+    transition: 0.3s;
+}
+
+.save-message:hover {
+    background: #0077aa;
+}
+
+/* دکمه‌ها */
+.container {
+    max-width: 500px;
+    margin: 15px auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.button-grid a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: #00aaff;
+    border-radius: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.button-grid a:hover {
+    background: #0077aa;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* پاسخگویی موبایل */
+@media(max-width:400px){
+    .button-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- نوار بالا -->
+<div class="navbar">
+    <div class="menu">☰</div>
+    <div class="title">صفحه اصلی</div>
+    <div class="options">⋮</div>
+</div>
+
+<!-- دکمه سیو مسیج -->
+<a href="golzar" class="save-message">سیو مسیج</a>
+
+<div class="container">
+    <div class="button-grid">
+        <a href="https://mo93ch-dev.github.io/havale">حواله پول</a>
+        <a href="golzar">بسته اینترنت</a>
+        <a href="golzar">کریدیت موبایل</a>
+        <a href="golzar">مبدل پول</a>
+        <a href="golzar">تب تو ارن</a>
+        <a href="golzar">سکه و الماس بازی</a>
+    </div>
+</div>
+
+</body>
+</html>
