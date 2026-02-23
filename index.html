@@ -14,8 +14,8 @@
 --chat-bg:#e5ddd5;
 --msg-bg:#4caf50;
 --msg-text:#fff;
+--back-color:#000;
 }
-
 body.dark{
 --primary:#1b5e20;
 --bg:#121212;
@@ -24,13 +24,10 @@ body.dark{
 --chat-bg:#111;
 --msg-bg:#2e7d32;
 --msg-text:#fff;
+--back-color:#fff;
 }
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Vazirmatn',sans-serif;}
-
 body{background:var(--bg);color:var(--text);transition:.3s;overflow:auto;}
-
-/* HEADER */
 header{
 background:var(--primary);
 color:#fff;
@@ -41,24 +38,23 @@ align-items:center;
 font-weight:600;
 transition:.3s;
 }
-
 body.dark header{background:#000;}
-
-.top-icon{
-width:50px;
-height:50px;
-object-fit:contain;
-cursor:pointer;
+header > div:last-child{
+display:flex;
+gap:8px;
+align-items:center;
 }
-
-/* MAIN GRID */
+.top-icon{object-fit:contain;cursor:pointer;display:block;}
+.top-icon.tabtoearn{width:55px;height:55px;}
+.top-icon.cloud{width:30px;height:30px;}
+.top-icon.telegram{width:70px;height:70px;}
+.top-icon.account{font-size:20px;width:20px;height:20px;text-align:center;line-height:20px;color:#fff;}
 .main-menu{
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:8px;
 padding:10px;
 }
-
 .menu-item{
 background:var(--card);
 border-radius:16px;
@@ -73,15 +69,11 @@ height:110px;
 padding:6px;
 transition:.2s;
 }
-
 .menu-item:active{transform:scale(.96);}
-
 .icon-box{height:50px;display:flex;align-items:center;justify-content:center;}
 .icon-box span{font-size:28px;}
 .title{font-size:12px;font-weight:600;margin-top:4px;}
 img.tab-main{width:50px;height:50px;object-fit:contain;}
-
-/* SIDEBAR */
 .sidebar{
 position:fixed;
 top:0;
@@ -93,81 +85,111 @@ transform:translateX(100%);
 transition:.3s;
 z-index:2000;
 padding:20px;
+overflow-y:auto;
 }
-
 .sidebar.open{transform:translateX(0);}
 .sidebar button{
 width:100%;padding:12px;border:none;border-radius:12px;background:var(--primary);
 color:#fff;margin-bottom:10px;cursor:pointer;font-weight:600;
 }
-
-/* CLOUD PAGE */
+.profile-box{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:8px;
+margin-bottom:15px;
+}
+.profile-box img{
+width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid var(--primary);
+cursor:pointer;
+}
+.profile-box input{
+width:80%;padding:6px;border-radius:12px;border:1px solid #ccc;text-align:center;
+}
+.settings-sub{
+display:none;flex-direction:column;gap:6px;margin-top:5px;
+}
 .cloud-page{
 position:fixed;inset:0;background:var(--chat-bg);
 display:none;flex-direction:column;z-index:3000;
 transition:.3s;
 }
-
 .chat-header{
-background:var(--primary);color:#fff;padding:15px;display:flex;align-items:center;gap:10px;font-weight:600;
+background:var(--primary);
+color:var(--back-color);
+padding:15px;
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:700;
 }
-body.dark .chat-header{background:#000;}
-
+.chat-header span:last-child{color:#fff;font-weight:600;}
 .chat-body{
 flex:1;padding:15px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;color:var(--text);
 }
-
 .message{
 max-width:70%;padding:10px 14px;border-radius:14px;background:var(--msg-bg);
 color:var(--msg-text);align-self:flex-end;word-wrap:break-word;
 }
-
 .chat-input{
 display:flex;padding:10px;background:var(--card);gap:6px;
 }
-
 .chat-input input{
 flex:1;padding:8px;border-radius:18px;border:1px solid #ccc;background:var(--card);color:var(--text);
 }
-
 .chat-input button{
 padding:8px 14px;border:none;border-radius:18px;background:var(--primary);color:#fff;cursor:pointer;
 }
 </style>
 </head>
-
 <body>
 
 <header>
 <div onclick="toggleMenu()">☰</div>
 <div>آریا پرداخت</div>
-<div style="display:flex;gap:10px;">
-<img class="top-icon" onclick="window.open('https://mo93ch-dev.github.io/game','_blank')" src="https://cdn.imgurl.ir/uploads/d265288_3187.png">
-<img class="top-icon" onclick="openCloud()" src="https://cdn.imgurl.ir/uploads/f730250_3200.png">
+<div>
+<span class="top-icon account" onclick="alert('حسابداری')">💼</span>
+<img class="top-icon tabtoearn" onclick="window.open('https://mo93ch-dev.github.io/game','_blank')" src="https://cdn.imgurl.ir/uploads/d265288_3187.png">
+<img class="top-icon cloud" onclick="openCloud()" src="https://cdn.imgurl.ir/uploads/f730250_3200.png">
 </div>
 </header>
 
 <div class="main-menu" id="homePage">
-<a href="https://mo93ch-dev.github.io/havale" class="menu-item"><div class="icon-box"><span>💸</span></div><div class="title">حواله</div></a>
-<a href="https://mo93ch-dev.github.io/internet" class="menu-item"><div class="icon-box"><span>🌐</span></div><div class="title">اینترنت</div></a>
-<a href="https://mo93ch-dev.github.io/credit" class="menu-item"><div class="icon-box"><span>📱</span></div><div class="title">کریدیت</div></a>
-<a href="https://mo93ch-dev.github.io/almas" class="menu-item"><div class="icon-box"><span>💎</span></div><div class="title">الماس</div></a>
-<a href="https://mo93ch-dev.github.io/game" class="menu-item"><div class="icon-box"><span>🎮</span></div><div class="title">بازی</div></a>
+<a href="https://mo93ch-dev.github.io/havale" class="menu-item"><div class="icon-box"><span>💸</span></div><div class="title">حواله پول</div></a>
+<a href="https://mo93ch-dev.github.io/internet" class="menu-item"><div class="icon-box"><span>🌐</span></div><div class="title">بسته انترنت</div></a>
+<a href="https://mo93ch-dev.github.io/credit" class="menu-item"><div class="icon-box"><span>📱</span></div><div class="title">کریدیت مبایل</div></a>
 <a href="https://mo93ch-dev.github.io/mobadil" class="menu-item"><div class="icon-box"><span>💱</span></div><div class="title">مبدل واحد پول</div></a>
-<a href="https://t.me/" class="menu-item"><div class="icon-box"><span>📩</span></div><div class="title">تلگرام پریمیوم</div></a>
-<a href="https://mo93ch-dev.github.io/game" class="menu-item"><div class="icon-box"><img class="tab-main" src="https://cdn.imgurl.ir/uploads/p947973_3190.png"></div><div class="title">تب تو ارن</div></a>
+<a href="https://t.me/" class="menu-item"><div class="icon-box"><img class="top-icon telegram" src="https://cdn.imgurl.ir/uploads/x908302_3211.png"></div><div class="title">تلگرام پریمیوم</div></a>
+<a href="https://mo93ch-dev.github.io/almas" class="menu-item"><div class="icon-box"><span>💎</span></div><div class="title">الماس IMO</div></a>
+<a href="https://mo93ch-dev.github.io/game" class="menu-item"><div class="icon-box"><span>🎮</span></div><div class="title">یوسی پابجی</div></a>
+<a href="#" class="menu-item" onclick="alert('قابلیت‌های بیشتر بزودی...')"><div class="icon-box"><span>📢</span></div><div class="title">تبلیغات شما</div></a>
+<a href="#" class="menu-item" onclick="alert('قابلیت‌های بیشتر بزودی...')"><div class="icon-box"><span>⚙️</span></div><div class="title">امکانات بیشتر</div></a>
 </div>
 
 <div class="sidebar" id="sidebar">
-<button onclick="toggleTheme()">تغییر تم</button>
-<button onclick="window.open('https://t.me/mogomogo','_blank')">پشتیبانی</button>
-<button onclick="alert('مبدل واحد پول')">مبدل واحد پول</button>
-<button onclick="alert('ماشین حساب')">ماشین حساب</button>
-<button>حسابداری</button>
+<div class="profile-box">
+<img id="profileImg" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="پروفایل" onclick="document.getElementById('fileInput').click();">
+<input type="text" id="profileName" placeholder="اسم خود را وارد کنید">
+<input type="file" id="fileInput" accept="image/*" style="display:none">
+</div>
+
+<button onclick="alert('💼 حسابداری')">💼 حسابداری</button>
+<button onclick="alert('🧮 ماشین حساب')">🧮 ماشین حساب</button>
+<button onclick="window.open('https://mo93ch-dev.github.io/mobadil','_blank')">💱 مبدل واحد پول</button>
+
+<button id="settingsBtn">⚙️ تنظیمات 🌙</button>
+<div class="settings-sub" id="settingsSub">
+<button onclick="toggleTheme()">🌙 تغییر تم</button>
+</div>
+
+<button onclick="window.open('https://t.me/mogomogo','_blank')">📩 پشتیبانی</button>
 </div>
 
 <div class="cloud-page" id="cloudPage">
-<div class="chat-header"><span onclick="closeCloud()" style="cursor:pointer;">← بازگشت</span><span>پیام‌های ذخیره شده</span></div>
+<div class="chat-header">
+<span onclick="closeCloud()" style="cursor:pointer;font-weight:700;color:var(--back-color)">← بازگشت</span>
+<span>پیام‌های ذخیره شده</span>
+</div>
 <div class="chat-body" id="chatBody"></div>
 <div class="chat-input"><input type="text" id="msgInput"><button onclick="sendMessage()">ارسال</button></div>
 </div>
@@ -175,18 +197,31 @@ padding:8px 14px;border:none;border-radius:18px;background:var(--primary);color:
 <script>
 let sidebar=document.getElementById("sidebar");
 let cloud=document.getElementById("cloudPage");
+let profileName=document.getElementById("profileName");
+let profileImg=document.getElementById("profileImg");
+let fileInput=document.getElementById("fileInput");
+let settingsBtn=document.getElementById("settingsBtn");
+let settingsSub=document.getElementById("settingsSub");
 
-// منو همبرگری
-function toggleMenu(){sidebar.classList.toggle("open");}
+// پروفایل
+profileName.value=localStorage.getItem("profileName")||"";
+profileImg.src=localStorage.getItem("profileImg")||profileImg.src;
+profileName.addEventListener("input",()=>{localStorage.setItem("profileName",profileName.value);});
+fileInput.addEventListener("change",function(){
+if(this.files && this.files[0]){
+let reader=new FileReader();
+reader.onload=function(e){profileImg.src=e.target.result;localStorage.setItem("profileImg",e.target.result);}
+reader.readAsDataURL(this.files[0]);
+}
+});
 
-// تم تاریک/روشن
+// تنظیمات زیر دکمه
+settingsBtn.addEventListener("click",()=>{settingsSub.style.display=(settingsSub.style.display==="flex"?"none":"flex");});
+
+function toggleMenu(){sidebar.classList.toggle("open");if(!sidebar.classList.contains("open")) settingsSub.style.display="none";}
 function toggleTheme(){document.body.classList.toggle("dark");}
-
-// فضای ابری
 function openCloud(){cloud.style.display="flex";loadMessages();}
 function closeCloud(){cloud.style.display="none";}
-
-// ذخیره پیام‌ها
 function sendMessage(){
 let input=document.getElementById("msgInput");
 if(input.value.trim()==="") return;
@@ -194,15 +229,12 @@ let msg=document.createElement("div");
 msg.className="message";
 msg.innerText=input.value;
 document.getElementById("chatBody").appendChild(msg);
-
 let saved=JSON.parse(localStorage.getItem("cloudMsgs")||"[]");
 saved.push(input.value);
 localStorage.setItem("cloudMsgs",JSON.stringify(saved));
-
 input.value="";
 document.getElementById("chatBody").scrollTop=document.getElementById("chatBody").scrollHeight;
 }
-
 function loadMessages(){
 let chat=document.getElementById("chatBody");
 chat.innerHTML="";
@@ -216,14 +248,15 @@ chat.appendChild(msg);
 chat.scrollTop=chat.scrollHeight;
 }
 
-/* بستن منو با لمس بیرون */
+// بستن منو با لمس بیرون
 document.addEventListener("click",function(e){
 if(sidebar.classList.contains("open") && !sidebar.contains(e.target) && !e.target.closest("header")){
 sidebar.classList.remove("open");
+settingsSub.style.display="none";
 }
 });
 
-/* بستن منو با کشیدن به راست */
+// بستن منو با کشیدن به راست
 let startX=0;
 document.addEventListener("touchstart",e=>{
 if(sidebar.classList.contains("open")) startX=e.touches[0].clientX;
@@ -231,7 +264,7 @@ if(sidebar.classList.contains("open")) startX=e.touches[0].clientX;
 document.addEventListener("touchend",e=>{
 if(sidebar.classList.contains("open")){
 let endX=e.changedTouches[0].clientX;
-if(endX>startX+60) sidebar.classList.remove("open");
+if(endX>startX+50){sidebar.classList.remove("open");settingsSub.style.display="none";}
 }
 });
 </script>
