@@ -1,127 +1,326 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>صفحه اصلی تلگرام</title>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+<title>آریا پرداخت</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body {
-    margin:0;
-    padding:0;
-    font-family: 'Vazirmatn', Tahoma, sans-serif;
-    background: #0088cc;
-    color: #000;
+:root{
+--primary:#229ED9;
+--bg:#f4f6f9;
+--card:#ffffff;
+--text:#000;
+--chat-bg:#e5ddd5;
+--my-msg:#dcf8c6;
 }
 
-/* نوار بالا */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    background: #0088cc;
-    color: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    position: sticky;
-    top:0;
-    z-index: 100;
+body.dark{
+--primary:#1f1f1f;
+--bg:#0f0f0f;
+--card:#1c1c1c;
+--text:#fff;
+--chat-bg:#0f0f0f;
+--my-msg:#2e7d32;
 }
 
-.navbar .menu, .navbar .options {
-    font-size: 24px;
-    cursor: pointer;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Vazirmatn',sans-serif}
+body{
+background:var(--bg);
+color:var(--text);
+transition:.3s;
+overflow-x:hidden;
 }
 
-.navbar .title {
-    font-size: 20px;
-    font-weight: bold;
+/* HEADER */
+header{
+background:var(--primary);
+color:#fff;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-weight:600;
 }
 
-/* دکمه سیو مسیج */
-.save-message {
-    background: #00aaff;
-    padding: 10px 15px;
-    border-radius: 15px;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    display: inline-block;
-    margin: 15px auto;
-    text-align: center;
-    width: 90%;
-    transition: 0.3s;
+.icon{
+font-size:20px;
+cursor:pointer;
+padding:5px;
 }
 
-.save-message:hover {
-    background: #0077aa;
+/* MAIN MENU */
+.main-menu{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+padding:20px;
 }
 
-/* دکمه‌ها */
-.container {
-    max-width: 500px;
-    margin: 15px auto;
-    padding: 10px;
-    text-align: center;
+.menu-item{
+background:var(--card);
+padding:20px 10px;
+border-radius:18px;
+text-align:center;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+transition:.25s;
+cursor:pointer;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:10px;
+text-decoration:none;
+color:var(--text);
 }
 
-.button-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+.menu-item:hover{
+transform:translateY(-5px);
 }
 
-.button-grid a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 18px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    background: #00aaff;
-    border-radius: 15px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+.menu-icon{
+font-size:32px;
+color:var(--primary);
 }
 
-.button-grid a:hover {
-    background: #0077aa;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+/* SIDEBAR */
+.sidebar{
+position:fixed;
+top:0;
+right:0;
+width:260px;
+height:100%;
+background:var(--card);
+transform:translateX(100%);
+transition:.35s cubic-bezier(.4,0,.2,1);
+z-index:2000;
+padding:20px;
+box-shadow:-5px 0 25px rgba(0,0,0,.2);
+border-radius:0 0 0 20px;
 }
 
-/* پاسخگویی موبایل */
-@media(max-width:400px){
-    .button-grid {
-        grid-template-columns: 1fr;
-    }
+.sidebar.open{
+transform:translateX(0);
+}
+
+.sidebar button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:var(--primary);
+color:#fff;
+cursor:pointer;
+font-weight:600;
+font-size:16px;
+margin-bottom:15px;
+transition:.3s;
+}
+
+.sidebar button:hover{
+background:#0f7acb;
+}
+
+/* BACKDROP */
+.backdrop{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.4);
+opacity:0;
+visibility:hidden;
+transition:.3s;
+z-index:1500;
+}
+
+.backdrop.show{
+opacity:1;
+visibility:visible;
+}
+
+/* CLOUD CHAT */
+.cloud-page{
+position:fixed;
+inset:0;
+background:var(--chat-bg);
+display:none;
+flex-direction:column;
+z-index:3000;
+}
+
+.chat-header{
+background:var(--primary);
+color:#fff;
+padding:15px;
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:600;
+}
+
+.chat-body{
+flex:1;
+padding:15px;
+overflow-y:auto;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.message{
+max-width:70%;
+padding:10px 14px;
+border-radius:16px;
+background:var(--my-msg);
+align-self:flex-end;
+animation:fadeIn .2s ease;
+}
+
+.chat-input{
+display:flex;
+padding:10px;
+background:var(--card);
+gap:10px;
+}
+
+.chat-input input{
+flex:1;
+padding:10px;
+border-radius:20px;
+border:1px solid #ccc;
+outline:none;
+}
+
+.chat-input button{
+padding:10px 15px;
+border:none;
+border-radius:20px;
+background:var(--primary);
+color:#fff;
+cursor:pointer;
+}
+
+/* ANIMATION */
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(5px)}
+to{opacity:1;transform:translateY(0)}
 }
 </style>
 </head>
+
 <body>
 
-<!-- نوار بالا -->
-<div class="navbar">
-    <div class="menu">☰</div>
-    <div class="title">صفحه اصلی</div>
-    <div class="options">⋮</div>
+<header>
+<div class="icon" onclick="toggleMenu()">☰</div>
+<div>آریا پرداخت</div>
+<div style="display:flex;gap:15px">
+<div class="icon" onclick="openCloud()">☁️</div>
+<div class="icon">⋮</div>
+</div>
+</header>
+
+<!-- MAIN MENU -->
+<div class="main-menu">
+<a href="havale" class="menu-item">
+<div class="menu-icon">💸</div>
+<div>حواله</div>
+</a>
+<a href="golzar" class="menu-item">
+<div class="menu-icon">🌐</div>
+<div>اینترنت</div>
+</a>
+<a href="golzar" class="menu-item">
+<div class="menu-icon">📱</div>
+<div>شارژ</div>
+</a>
+<a href="golzar" class="menu-item">
+<div class="menu-icon">💎</div>
+<div>الماس</div>
+</a>
+<a href="golzar" class="menu-item">
+<div class="menu-icon">🎮</div>
+<div>بازی</div>
+</a>
+<a href="#" onclick="openCalculator()" class="menu-item">
+<div class="menu-icon">💱</div>
+<div>ماشین حساب ارز</div>
+</a>
 </div>
 
-<!-- دکمه سیو مسیج -->
-<a href="golzar" class="save-message">سیو مسیج</a>
-
-<div class="container">
-    <div class="button-grid">
-        <a href="https://mo93ch-dev.github.io/havale">حواله پول</a>
-        <a href="golzar">بسته اینترنت</a>
-        <a href="golzar">کریدیت موبایل</a>
-        <a href="golzar">مبدل پول</a>
-        <a href="golzar">تب تو ارن</a>
-        <a href="golzar">سکه و الماس بازی</a>
-    </div>
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+<h3 style="margin-bottom:20px">تنظیمات</h3>
+<button onclick="toggleTheme()">🌞 / 🌙 تغییر تم</button>
+<input type="text" placeholder="جستجو..." style="width:100%;padding:10px;border-radius:12px;border:1px solid #ccc">
 </div>
+
+<div class="backdrop" id="backdrop" onclick="closeMenu()"></div>
+
+<!-- CLOUD CHAT -->
+<div class="cloud-page" id="cloudPage">
+<div class="chat-header">
+<span onclick="closeCloud()" style="cursor:pointer">←</span>
+<span>پیام‌های ذخیره شده</span>
+</div>
+
+<div class="chat-body" id="chatBody"></div>
+
+<div class="chat-input">
+<input type="text" id="msgInput" placeholder="پیام خود را بنویسید...">
+<button onclick="sendMessage()">ارسال</button>
+</div>
+</div>
+
+<!-- CALCULATOR PAGE -->
+<div class="cloud-page" id="calculatorPage">
+<div class="chat-header">
+<span onclick="closeCalculator()" style="cursor:pointer">←</span>
+<span>ماشین حساب ارز</span>
+</div>
+<div style="padding:20px;">
+<input type="number" id="amount" placeholder="مبلغ را وارد کنید" style="width:100%;margin-bottom:10px;padding:12px;border-radius:12px;border:1px solid #ccc">
+<select id="rate" style="width:100%;margin-bottom:10px;padding:12px;border-radius:12px;border:1px solid #ccc">
+<option value="58000">دلار (58000 تومان)</option>
+<option value="63000">یورو (63000 تومان)</option>
+<option value="7000">درهم (7000 تومان)</option>
+</select>
+<button onclick="calculate()" style="width:100%;padding:12px;border:none;border-radius:12px;background:var(--primary);color:#fff;font-weight:600;cursor:pointer;">محاسبه</button>
+<div class="result" id="result" style="margin-top:10px;font-weight:bold;"></div>
+</div>
+</div>
+
+<script>
+function toggleMenu(){
+document.getElementById("sidebar").classList.toggle("open");
+document.getElementById("backdrop").classList.toggle("show");
+}
+function closeMenu(){
+document.getElementById("sidebar").classList.remove("open");
+document.getElementById("backdrop").classList.remove("show");
+}
+function toggleTheme(){
+document.body.classList.toggle("dark");
+}
+function openCloud(){document.getElementById("cloudPage").style.display="flex";}
+function closeCloud(){document.getElementById("cloudPage").style.display="none";}
+function sendMessage(){
+let input=document.getElementById("msgInput");
+if(input.value.trim()==="") return;
+let msg=document.createElement("div");
+msg.className="message";
+msg.innerText=input.value;
+document.getElementById("chatBody").appendChild(msg);
+input.value="";
+document.getElementById("chatBody").scrollTop=9999;
+}
+function openCalculator(){document.getElementById("calculatorPage").style.display="flex";}
+function closeCalculator(){document.getElementById("calculatorPage").style.display="none";}
+function calculate(){
+let amount=document.getElementById("amount").value;
+let rate=document.getElementById("rate").value;
+let total=amount*rate;
+document.getElementById("result").innerText="مبلغ نهایی: "+total.toLocaleString()+" تومان";
+}
+</script>
 
 </body>
 </html>
