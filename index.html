@@ -272,25 +272,25 @@ if(endX>startX+50){sidebar.classList.remove("open");settingsSub.style.display="n
 </body>
 </html>
 
-<!-- زیرنویس متحرک بالا -->
-<div id="topNotice">
+<!-- زیرنویس متحرک پایین -->
+<div id="bottomNotice">
   <div id="scrollText">⚠️ توجه: تمام قابلیت‌های موجود در حال حاضر آزمایشی می‌باشند ⚠️</div>
 </div>
 
 <style>
-#topNotice {
+#bottomNotice {
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   background-color: #ff4d4d; /* زمینه قرمز ثابت */
   overflow: hidden;
   z-index: 9999;
   padding: 10px 0;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
   text-align: center;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 #scrollText {
