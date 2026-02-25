@@ -272,7 +272,7 @@ if(endX>startX+50){sidebar.classList.remove("open");settingsSub.style.display="n
 </body>
 </html>
 
-<!-- زیرنویس متحرک پایین -->
+<!-- زیرنویس متحرک پایین صفحه -->
 <div id="bottomNotice">
   <div id="scrollText">⚠️ توجه: تمام قابلیت‌های موجود در حال حاضر آزمایشی می‌باشند ⚠️</div>
 </div>
@@ -302,9 +302,10 @@ if(endX>startX+50){sidebar.classList.remove("open");settingsSub.style.display="n
   animation: scrollText 12s linear infinite;
 }
 
+/* تغییر جهت حرکت از چپ به راست */
 @keyframes scrollText {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 @media (max-width: 600px) {
