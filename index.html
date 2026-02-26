@@ -3,143 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>آریا پرداخت</title>
+<title>آریا پرداخت مدرن</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
---primary:#3cb371;
---bg:#f4f6f9;
+--primary:#4dabf7;
+--secondary:#1e88e5;
+--accent:#2AABEE; /* آبی تلگرامی برای دکمه ها */
+--bg:#e3f2fd;
 --card:#ffffff;
---text:#000;
---chat-bg:#e5ddd5;
---msg-bg:#4caf50;
---msg-text:#fff;
---back-color:#000;
+--text:#212121;
+--shadow:rgba(0,0,0,0.15);
+--hoverGlow:rgba(77, 171, 247,0.3);
+--back-color:#fff;
 }
 body.dark{
---primary:#1b5e20;
+--primary:#1976d2;
+--secondary:#0d47a1;
+--accent:#1C9CD9;
 --bg:#121212;
 --card:#1e1e1e;
 --text:#f1f1f1;
---chat-bg:#111;
---msg-bg:#2e7d32;
---msg-text:#fff;
+--shadow:rgba(255,255,255,0.1);
+--hoverGlow:rgba(25, 118, 210,0.3);
 --back-color:#fff;
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Vazirmatn',sans-serif;}
-body{background:var(--bg);color:var(--text);transition:.3s;overflow:auto;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Vazirmatn',sans-serif;transition:all .3s;}
+body{background:var(--bg);color:var(--text);overflow-x:hidden;}
 header{
 background:var(--primary);
 color:#fff;
-padding:15px;
+padding:15px 20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-font-weight:600;
-transition:.3s;
+font-weight:700;
+position:sticky;top:0;z-index:1000;
+box-shadow:0 5px 15px var(--shadow);
+border-radius:0 0 16px 16px;
 }
-body.dark header{background:#000;}
-header > div:last-child{
-display:flex;
-gap:8px;
-align-items:center;
-}
-.top-icon{object-fit:contain;cursor:pointer;display:block;}
-.top-icon.tabtoearn{width:55px;height:55px;}
-.top-icon.cloud{width:30px;height:30px;}
-.top-icon.telegram{width:70px;height:70px;}
-.top-icon.account{font-size:20px;width:20px;height:20px;text-align:center;line-height:20px;color:#fff;}
+header > div:first-child{cursor:pointer;font-size:24px;}
+header > div:nth-child(2){font-size:20px;font-weight:700;}
+header > div:last-child{display:flex;gap:10px;align-items:center;}
+.top-icon{cursor:pointer;transition:all .3s;border-radius:12px;object-fit:contain;}
+.top-icon:hover{transform:scale(1.15) rotate(5deg);}
+.top-icon.tabtoearn{width:50px;height:50px;filter: brightness(0) invert(1);} /* سفید کردن تصویر */
+.top-icon.cloud{width:45px;height:45px;}
+.top-icon.telegram{width:50px;height:50px;}
+.top-icon.account{font-size:20px;width:30px;height:30px;text-align:center;line-height:30px;color:#fff;}
 .main-menu{
 display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:8px;
-padding:10px;
+grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+gap:16px;
+padding:16px;
 }
 .menu-item{
 background:var(--card);
 border-radius:16px;
-box-shadow:0 3px 10px rgba(0,0,0,0.07);
+box-shadow:0 8px 20px var(--shadow);
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
 text-decoration:none;
 color:var(--text);
-height:110px;
-padding:6px;
-transition:.2s;
+height:120px;
+padding:10px;
+transition:.4s;
+opacity:0;
+transform:translateY(20px);
+animation:fadeUp 0.5s forwards;
+position:relative;
+overflow:hidden;
 }
-.menu-item:active{transform:scale(.96);}
-.icon-box{height:50px;display:flex;align-items:center;justify-content:center;}
+.menu-item::after{
+content:"";
+position:absolute;
+inset:0;
+background:var(--hoverGlow);
+opacity:0;
+transition:.4s;
+border-radius:16px;
+}
+.menu-item:hover::after{opacity:1;}
+.menu-item:hover{transform:translateY(0) scale(1.05);box-shadow:0 12px 25px var(--shadow);}
+.menu-item:nth-child(1){animation-delay:0.05s;}
+.menu-item:nth-child(2){animation-delay:0.1s;}
+.menu-item:nth-child(3){animation-delay:0.15s;}
+.menu-item:nth-child(4){animation-delay:0.2s;}
+.menu-item:nth-child(5){animation-delay:0.25s;}
+.menu-item:nth-child(6){animation-delay:0.3s;}
+.menu-item:nth-child(7){animation-delay:0.35s;}
+.menu-item:nth-child(8){animation-delay:0.4s;}
+.menu-item:nth-child(9){animation-delay:0.45s;}
+@keyframes fadeUp{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}
+.icon-box{height:50px;display:flex;align-items:center;justify-content:center;z-index:1;}
 .icon-box span{font-size:28px;}
-.title{font-size:12px;font-weight:600;margin-top:4px;}
-img.tab-main{width:50px;height:50px;object-fit:contain;}
+.title{font-size:13px;font-weight:600;margin-top:6px;text-align:center;z-index:1;}
+/* منوی همبرگری */
 .sidebar{
-position:fixed;
-top:0;
-right:0;
-width:260px;
-height:100%;
-background:var(--card);
+position:fixed;top:0;right:0;width:260px;height:100%;
+background:var(--bg); /* هماهنگ با صفحه اصلی */
 transform:translateX(100%);
-transition:.3s;
-z-index:2000;
-padding:20px;
-overflow-y:auto;
+transition:.4s;z-index:2000;padding:20px;overflow-y:auto;
+box-shadow:-2px 0 15px var(--shadow);
+border-top-left-radius:0;border-bottom-left-radius:0;
 }
 .sidebar.open{transform:translateX(0);}
 .sidebar button{
-width:100%;padding:12px;border:none;border-radius:12px;background:var(--primary);
-color:#fff;margin-bottom:10px;cursor:pointer;font-weight:600;
-}
-.profile-box{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:8px;
-margin-bottom:15px;
-}
-.profile-box img{
-width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid var(--primary);
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:var(--accent); /* آبی تلگرامی */
+color:#fff;
+margin-bottom:12px;
 cursor:pointer;
-}
-.profile-box input{
-width:80%;padding:6px;border-radius:12px;border:1px solid #ccc;text-align:center;
-}
-.settings-sub{
-display:none;flex-direction:column;gap:6px;margin-top:5px;
-}
-.cloud-page{
-position:fixed;inset:0;background:var(--chat-bg);
-display:none;flex-direction:column;z-index:3000;
+font-weight:600;
 transition:.3s;
 }
-.chat-header{
-background:var(--primary);
-color:var(--back-color);
-padding:15px;
-display:flex;
-align-items:center;
-gap:10px;
-font-weight:700;
+.sidebar button:hover{
+transform:scale(1.05);
+background:#1C9CD9;
 }
-.chat-header span:last-child{color:#fff;font-weight:600;}
-.chat-body{
-flex:1;padding:15px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;color:var(--text);
+.profile-box{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:15px;}
+.profile-box img{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #fff;cursor:pointer;transition:.3s;}
+.profile-box img:hover{transform:scale(1.1);}
+.profile-box input{width:80%;padding:6px;border-radius:12px;border:1px solid #ccc;text-align:center;background:#fff;color:#000;}
+.settings-sub{display:none;flex-direction:column;gap:6px;margin-top:5px;}
+.cloud-page{position:fixed;inset:0;background:var(--bg);display:none;flex-direction:column;z-index:3000;transition:.3s;}
+.chat-header{background:var(--primary);color:#fff;padding:15px;display:flex;align-items:center;gap:10px;font-weight:700;}
+.chat-body{flex:1;padding:10px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;color:var(--text);}
+.message{max-width:70%;padding:10px 14px;border-radius:18px;background:var(--accent);color:#fff;align-self:flex-end;word-wrap:break-word;opacity:0;animation:msgFade 0.3s forwards;}
+@keyframes msgFade{0%{opacity:0;transform:translateY(10px);}100%{opacity:1;transform:translateY(0);}}
+.chat-input{display:flex;padding:10px;background:var(--card);gap:6px;border-top:1px solid #ccc;}
+.chat-input input{flex:1;padding:8px;border-radius:18px;border:1px solid #ccc;background:var(--card);color:var(--text);}
+.chat-input button{padding:8px 14px;border:none;border-radius:18px;background:var(--accent);color:#fff;cursor:pointer;transition:.3s;}
+.chat-input button:hover{transform:scale(1.05);}
+#bottomNotice {
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100%;
+background: linear-gradient(90deg,#4dabf7,#1e88e5,#4dabf7);
+overflow: hidden;
+z-index: 9999;
+padding: 12px 0;
+text-align: center;
+font-weight:600;
+border-top-left-radius:12px;
+border-top-right-radius:12px;
+box-shadow:0 -2px 12px rgba(0,0,0,0.3);
 }
-.message{
-max-width:70%;padding:10px 14px;border-radius:14px;background:var(--msg-bg);
-color:var(--msg-text);align-self:flex-end;word-wrap:break-word;
+#scrollText {
+display:inline-block;
+color:#fff;
+font-size:14px;
+white-space:nowrap;
+animation:scrollText 20s linear infinite;
 }
-.chat-input{
-display:flex;padding:10px;background:var(--card);gap:6px;
-}
-.chat-input input{
-flex:1;padding:8px;border-radius:18px;border:1px solid #ccc;background:var(--card);color:var(--text);
-}
-.chat-input button{
-padding:8px 14px;border:none;border-radius:18px;background:var(--primary);color:#fff;cursor:pointer;
-}
+@keyframes scrollText{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
+@media (max-width: 600px) { #scrollText { font-size:12px; } }
 </style>
 </head>
 <body>
@@ -172,16 +196,13 @@ padding:8px 14px;border:none;border-radius:18px;background:var(--primary);color:
 <input type="text" id="profileName" placeholder="اسم خود را وارد کنید">
 <input type="file" id="fileInput" accept="image/*" style="display:none">
 </div>
-
 <button onclick="window.location.href='https://mo93ch-dev.github.io/esabdaritel'">💼 حسابداری</button>
 <button onclick="window.location.href='https://mo93ch-dev.github.io/mashinesabtel'">🧮 ماشین حساب</button>
 <button onclick="window.location.href='https://mo93ch-dev.github.io/mobadiltel'">💱 مبدل واحد پول</button>
-
 <button id="settingsBtn">⚙️ تنظیمات</button>
 <div class="settings-sub" id="settingsSub">
 <button onclick="toggleTheme()">🌙 تغییر تم</button>
 </div>
-
 <button onclick="window.open('https://t.me/mogomogo','_blank')">📩 پشتیبانی</button>
 </div>
 
@@ -194,6 +215,12 @@ padding:8px 14px;border:none;border-radius:18px;background:var(--primary);color:
 <div class="chat-input"><input type="text" id="msgInput"><button onclick="sendMessage()">ارسال</button></div>
 </div>
 
+<div id="bottomNotice">
+<div id="scrollText">
+⚠️ توجه: تمام خدمات موجود در حال حاضر آزمایشی می‌باشند ⚠️ | هر نوع استفاده نادرست و هر عمل فریبکارانه غیرقانونی می‌باشد و پیگرد قانونی دارد.
+</div>
+</div>
+
 <script>
 let sidebar=document.getElementById("sidebar");
 let cloud=document.getElementById("cloudPage");
@@ -203,7 +230,6 @@ let fileInput=document.getElementById("fileInput");
 let settingsBtn=document.getElementById("settingsBtn");
 let settingsSub=document.getElementById("settingsSub");
 
-// پروفایل
 profileName.value=localStorage.getItem("profileName")||"";
 profileImg.src=localStorage.getItem("profileImg")||profileImg.src;
 profileName.addEventListener("input",()=>{localStorage.setItem("profileName",profileName.value);});
@@ -214,8 +240,6 @@ reader.onload=function(e){profileImg.src=e.target.result;localStorage.setItem("p
 reader.readAsDataURL(this.files[0]);
 }
 });
-
-// تنظیمات زیر دکمه
 settingsBtn.addEventListener("click",()=>{settingsSub.style.display=(settingsSub.style.display==="flex"?"none":"flex");});
 
 function toggleMenu(){sidebar.classList.toggle("open");if(!sidebar.classList.contains("open")) settingsSub.style.display="none";}
@@ -248,69 +272,20 @@ chat.appendChild(msg);
 chat.scrollTop=chat.scrollHeight;
 }
 
-// بستن منو با لمس بیرون
-document.addEventListener("click",function(e){
-if(sidebar.classList.contains("open") && !sidebar.contains(e.target) && !e.target.closest("header")){
-sidebar.classList.remove("open");
-settingsSub.style.display="none";
-}
-});
-
-// بستن منو با کشیدن به راست
+// بستن منو با لمس بیرون و کشیدن
 let startX=0;
-document.addEventListener("touchstart",e=>{
-if(sidebar.classList.contains("open")) startX=e.touches[0].clientX;
-});
+document.addEventListener("touchstart",e=>{if(sidebar.classList.contains("open")) startX=e.touches[0].clientX;});
 document.addEventListener("touchend",e=>{
 if(sidebar.classList.contains("open")){
 let endX=e.changedTouches[0].clientX;
 if(endX>startX+50){sidebar.classList.remove("open");settingsSub.style.display="none";}
 }
 });
+document.addEventListener("click",function(e){
+if(sidebar.classList.contains("open") && !sidebar.contains(e.target) && !e.target.closest("header")){
+sidebar.classList.remove("open");settingsSub.style.display="none";}
+});
 </script>
 
 </body>
 </html>
-
-<!-- زیرنویس متحرک پایین صفحه -->
-<div id="bottomNotice">
-  <div id="scrollText">⚠️ توجه: تمام خدمات موجود در حال حاضر آزمایشی می‌باشند ⚠️</div>
-</div>
-
-<style>
-#bottomNotice {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #ff4d4d; /* زمینه قرمز ثابت */
-  overflow: hidden;
-  z-index: 9999;
-  padding: 10px 0;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-  text-align: center;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-}
-
-#scrollText {
-  display: inline-block;
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-  white-space: nowrap;
-  animation: scrollText 12s linear infinite;
-}
-
-/* تغییر جهت حرکت از چپ به راست */
-@keyframes scrollText {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-@media (max-width: 600px) {
-  #scrollText {
-    font-size: 12px;
-  }
-}
-</style>
